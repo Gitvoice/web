@@ -1,0 +1,16 @@
+name: Collecte
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 5,17 * * *'
+  workflow_dispatch:
+
+
+jobs:
+  collecte:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: Gitvoice/web@collection-bot
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
