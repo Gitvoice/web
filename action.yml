@@ -1,0 +1,5 @@
+name: 'Collating data'
+description: 'Collating data'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
