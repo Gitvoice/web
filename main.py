@@ -20,6 +20,7 @@ if not os.path.exists(TEMP_PATH):
     os.makedirs(TEMP_PATH)
 hashtable_path = os.path.join(TEMP_PATH, 'hashtable')
 repo_path = os.path.join(TEMP_PATH, 'out')
+skin_data = requests.get(LCU_SKINS).json()
 
 
 def run_shell(shell, cwd):
@@ -72,7 +73,7 @@ def get_hero_list():
         print('无更新')
 
 
-def filter_skin(a, b, name, tid, skin_data):
+def filter_skin(a, b, name, tid):
     res = []
     for i in b:
         _id = str(int(i['id'].replace(tid, '', 1)))
@@ -95,10 +96,10 @@ def get_champion_info(name):
         name = 'Fiddlesticks'
         url = url.replace('FiddleSticks', 'Fiddlesticks')
     data = requests.get(url).json()['data']
-    skin_data = requests.get(LCU_SKINS).json()
+
     this = data[name]
     this['image'] = CHAMPION_SQUARE.format(name=name)
-    this['skins'] = filter_skin(get_skins(name), this['skins'], this['id'], this['key'], skin_data)
+    this['skins'] = filter_skin(get_skins(name), this['skins'], this['id'], this['key'])
     del this['lore']
     del this['tags']
     del this['partype']
