@@ -21,6 +21,15 @@ if not os.path.exists(TEMP_PATH):
 hashtable_path = os.path.join(TEMP_PATH, 'hashtable')
 repo_path = os.path.join(TEMP_PATH, 'out')
 skin_data = requests.get(LCU_SKINS).json()
+# 处理星籁歌姬的特殊情况
+extra = {}
+for item in skin_data.values():
+    if 'questSkinInfo' in item.keys():
+        for i in item['questSkinInfo']['tiers']:
+            extra.update({
+                str(i['id']): i
+            })
+skin_data.update(extra)
 
 
 def run_shell(shell, cwd):
