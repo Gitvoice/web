@@ -72,13 +72,16 @@ def get_hero_list():
         print('无更新')
 
 
-def filter_skin(a, b, name, tid):
+def filter_skin(a, b, name, tid, skin_data):
     res = []
     for i in b:
         _id = str(int(i['id'].replace(tid, '', 1)))
         if _id in a:
+            if i['name'] == 'default':
+                i['name'] = '默认皮肤'
             i['image'] = CHAMPION_SKIN.format(id=i['id'])
             i['hash'] = HASHTABLE_CDN.format(name=name.lower(), id=_id)
+            i['description'] = skin_data[i['id']]['description']
             res.append(
                 i
             )
@@ -92,9 +95,10 @@ def get_champion_info(name):
         name = 'Fiddlesticks'
         url = url.replace('FiddleSticks', 'Fiddlesticks')
     data = requests.get(url).json()['data']
+    skin_data = requests.get(LCU_SKINS).json()
     this = data[name]
     this['image'] = CHAMPION_SQUARE.format(name=name)
-    this['skins'] = filter_skin(get_skins(name), this['skins'], this['id'], this['key'])
+    this['skins'] = filter_skin(get_skins(name), this['skins'], this['id'], this['key'], skin_data)
     del this['lore']
     del this['tags']
     del this['partype']

@@ -20,4 +20,6 @@ HASHTABLE_CDN = 'https://cdn.jsdelivr.net/gh/Virace/lol-audio-events-hashtable@m
 CHAMPION_SQUARE = '//game.gtimg.cn/images/lol/act/img/champion/{name}.png'
 CHAMPION_SKIN = '//game.gtimg.cn/images/lol/act/img/skinloading/{id}.jpg'
 
+LCU_SKINS = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/zh_cn/v1/skins.json'
+
 TEMP_PATH = '/temp'
